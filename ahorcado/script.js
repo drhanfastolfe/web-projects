@@ -137,7 +137,7 @@ function compruebaLetra()
 
             if (numErrores == 6)
             {
-                fin.textContent = '¡Se acabó! Has perdido :(';
+                fin.textContent = '¡Se acabó! Has perdido :( La palabra es: ' + palabraSecreta.toUpperCase();
 
                 finDeJuego();
             }
