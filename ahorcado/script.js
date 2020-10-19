@@ -1,16 +1,3 @@
-// 11. El juego del ahorcado.
-
-// Falta array de diccionario
-// Lógica del programa: 
-// 1. Elige una palabra random del diccionario
-// 2. Muestra la palabra en forma de asteriscos
-// 3. Al enviar una letra:
-// 3.1 Compruba si ha sido introducida antes por el usurario, continua si false
-// 3.2 Añade letraUsuario a arrayLetrasUsuario, combrueba si palabra random contiene letra del usuario
-// 3.3 Si false -> erroresUsuario++ y cambia imagen / finaliza el juego si errores = 5
-// 3.4 Si true -> reemplaza asterisco por letraUs donde corresponda
-// 3.5 Compeuba si quedan asteriscos / si false- > fin - si true -> continua
-
 import { diccionario } from './diccionario.js';
 
 const imagen = document.querySelector('.imagen');
@@ -23,19 +10,19 @@ const enviarAdivinar = document.getElementById('enviarAdivinar');
 
 let palabraSecreta = valorRandomArray(diccionario);
 let palabraMostrar = asteriscos(palabraSecreta).split('');
-let letrasUsuario = []; // Array para guardar letras correctas del usuario
-let numErrores = 0; // Array con errores del usuario
-let letrasErrores = []; // guarda letras erroneas
+let letrasUsuario = [];
+let numErrores = 0;
+let letrasErrores = [];
 
 let botonReiniciar;
 
-function valorRandomArray(array) // Devulve un valor al azar de un array
+function valorRandomArray(array)
 {
     const random = Math.floor(Math.random() * array.length);
     return array[random];
 }
 
-function asteriscos(palabra) // Pone asteriscos para la palabra a adivinar
+function asteriscos(palabra)
 {
     let palabraAsteriscos = '';
     
@@ -47,7 +34,7 @@ function asteriscos(palabra) // Pone asteriscos para la palabra a adivinar
     return palabraAsteriscos;
 }
 
-function contieneLetra(letra, palabra) // Comprueba si una palabra tiene una letra
+function contieneLetra(letra, palabra)
 {
     let contiene = false;
 
@@ -63,7 +50,7 @@ function contieneLetra(letra, palabra) // Comprueba si una palabra tiene una let
     return contiene;
 }
 
-function mostrarPalabra(letraUsuario, palabraMostrar) // Remplaza los asteriscos por la letra acertada
+function mostrarPalabra(letraUsuario, palabraMostrar)
 {
     for (let i = 0; i < palabraSecreta.length; i++)
     {
@@ -94,6 +81,7 @@ function reiniciarJuego()
     numErrores = 0; 
     letrasErrores = [];
 
+    imagen.src = './img/1.png';
     palabra.textContent = 'Palabra: ' + palabraMostrar.join('').toUpperCase();
     errores.textContent = 'Errores: ' + letrasErrores.join(' ').toUpperCase();
     intentos.textContent = 'Intentos ' + (6 - numErrores);
@@ -121,7 +109,7 @@ campoAdivinar.addEventListener('keypress', function (e)
 })
 enviarAdivinar.addEventListener('click', compruebaLetra); 
 
-function compruebaLetra() // Función princpipal
+function compruebaLetra()
 {
     let letraUsuario = campoAdivinar.value.toLowerCase();
 
