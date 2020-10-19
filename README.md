@@ -2,4 +2,4 @@
 
 Mis pequeños proyectos con HTML, CSS y javaScript.
 
-- Ahorcado
+- **[Ahorcado](ahorcado/index.html)**: el juego del ahorcado.
