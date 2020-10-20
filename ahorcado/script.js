@@ -121,6 +121,11 @@ function definicionPalabra(palabraSecreta)
   posFinal = requestText.indexOf('.",');
 
   definicion = requestText.slice(0, posFinal);
+
+  if (definicion.includes('"') || definicion.includes(':'))
+  {
+    definicion = 'Sin pista'    
+  }
   
   return definicion;
 }
