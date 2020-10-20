@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>El ahorcado</title>
+    <link rel="stylesheet" href="style.css">
     <script type="module" src="script.js" defer></script>
 </head>
 <body>
@@ -18,7 +19,8 @@
         <p class="palabra"></p> 
         <p class="pista"></p>
         <p class="errores"></p> 
-        <p class="intentos"></p> 
+        <p class="intentos"></p>
+        <p class="puntos"></p>
         <p class="fin"></p>
     </div>
     
@@ -26,6 +28,7 @@
         <label for="adivinar">Tu letra:</label>
         <input class="campoAdivinar" type="text" autofocus maxlength="1">
         <input type="submit" id="enviarAdivinar" value="Probar">
+        <input type="button" id="reiniciar" value="Reiniciar">
     </div>
 </body>
 </html>

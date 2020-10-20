@@ -5,9 +5,11 @@ const palabra = document.querySelector('.palabra');
 const pista = document.querySelector('.pista');
 const errores = document.querySelector('.errores');
 const intentos = document.querySelector('.intentos');
+const puntos = document.querySelector('.puntos');
 const fin = document.querySelector('.fin');
 const campoAdivinar = document.querySelector('.campoAdivinar');
 const enviarAdivinar = document.getElementById('enviarAdivinar');
+const botonReiniciar = document.getElementById('reiniciar');
 
 let palabraSecreta = valorRandomArray(diccionario);
 let palabraMostrar = asteriscos(palabraSecreta).split('');
@@ -15,8 +17,9 @@ let letrasUsuario = [];
 let numErrores = 0;
 let letrasErrores = [];
 let pistaPalabraSecreta = definicionPalabra(palabraSecreta);
+let numPuntos = 0;
 
-let botonReiniciar;
+
 
 function valorRandomArray(array)
 {
@@ -69,9 +72,8 @@ function finDeJuego()
 {
     campoAdivinar.disabled = true;
     enviarAdivinar.disabled = true;
-    botonReiniciar = document.createElement('button');
-    botonReiniciar.textContent = 'Reiniciar juego';
-    document.body.append(botonReiniciar);
+    botonReiniciar.disabled = false;
+    botonReiniciar.focus();
     botonReiniciar.addEventListener('click', reiniciarJuego);
 }
 
@@ -88,11 +90,11 @@ function reiniciarJuego()
     palabra.textContent = 'Palabra: ' + palabraMostrar.join('').toUpperCase();
     pista.textContent = 'Pista: ' + pistaPalabraSecreta;
     errores.textContent = 'Errores: ' + letrasErrores.join(' ').toUpperCase();
-    intentos.textContent = 'Intentos ' + (6 - numErrores);
+    intentos.textContent = 'Intentos: ' + (6 - numErrores);
+    puntos.textContent = 'Puntos: ' + numPuntos;
     fin.textContent = '';
 
-    botonReiniciar.parentNode.removeChild(botonReiniciar);
-
+    botonReiniciar.disabled = true;
     campoAdivinar.disabled = false;
     enviarAdivinar.disabled = false;
 
@@ -133,7 +135,9 @@ function definicionPalabra(palabraSecreta)
 palabra.textContent = 'Palabra: ' + palabraMostrar.join('').toUpperCase();
 pista.textContent = 'Pista: ' + pistaPalabraSecreta;
 errores.textContent = 'Errores: ' + letrasErrores.join(' ').toUpperCase();
-intentos.textContent = 'Intentos ' + (6 - numErrores);
+intentos.textContent = 'Intentos: ' + (6 - numErrores);
+puntos.textContent = 'Puntos: ' + numPuntos;
+botonReiniciar.disabled = true;
 
 campoAdivinar.focus();
 
@@ -162,7 +166,10 @@ function compruebaLetra()
                 
                 if (!contieneLetra('*', palabraMostrar.join('')))
                 {
-                    fin.textContent = '¡Se acabó! Has ganado :)';
+                    fin.style.color = "rgb(102, 255, 51)";
+                    fin.textContent = '¡Lo adivinaste! :)';
+                    numPuntos = numPuntos + 10;
+                    puntos.textContent = 'Puntos: ' + numPuntos;
 
                     finDeJuego();
                 }
@@ -175,7 +182,10 @@ function compruebaLetra()
 
                 if (numErrores == 6)
                 {
-                    fin.textContent = '¡Se acabó! Has perdido :( La palabra es: ' + palabraSecreta.toUpperCase();
+                    fin.style.color = "red";
+                    fin.textContent = '¡Fallaste! :( La palabra es: ' + palabraSecreta.toUpperCase();
+                    numPuntos = numPuntos - 5;
+                    puntos.textContent = 'Puntos: ' + numPuntos;
 
                     finDeJuego();
                 }
