@@ -2,6 +2,7 @@ import { diccionario } from './diccionario.js';
 
 const imagen = document.querySelector('.imagen');
 const palabra = document.querySelector('.palabra');
+const pista = document.querySelector('.pista');
 const errores = document.querySelector('.errores');
 const intentos = document.querySelector('.intentos');
 const fin = document.querySelector('.fin');
@@ -13,6 +14,7 @@ let palabraMostrar = asteriscos(palabraSecreta).split('');
 let letrasUsuario = [];
 let numErrores = 0;
 let letrasErrores = [];
+let pistaPalabraSecreta = definicionPalabra(palabraSecreta);
 
 let botonReiniciar;
 
@@ -80,9 +82,11 @@ function reiniciarJuego()
     letrasUsuario = [];
     numErrores = 0; 
     letrasErrores = [];
+    pistaPalabraSecreta = definicionPalabra(palabraSecreta);
 
     imagen.src = './img/1.png';
     palabra.textContent = 'Palabra: ' + palabraMostrar.join('').toUpperCase();
+    pista.textContent = pistaPalabraSecreta;
     errores.textContent = 'Errores: ' + letrasErrores.join(' ').toUpperCase();
     intentos.textContent = 'Intentos ' + (6 - numErrores);
     fin.textContent = '';
@@ -95,7 +99,34 @@ function reiniciarJuego()
     campoAdivinar.focus();
 }
 
+function definicionPalabra(palabraSecreta)
+{
+  let definicion;
+  let requestText;
+  let posInicial; 
+  let posFinal;
+
+  let request = new XMLHttpRequest();
+  
+  request.open('GET', 'https://api.dictionaryapi.dev/api/v2/entries/es/' + palabraSecreta, false);
+  
+  request.send();
+  
+  requestText = request.responseText;
+  
+  posInicial = requestText.indexOf('"definition"') + '"definition"'.length + 3;
+  
+  requestText = requestText.slice(posInicial);
+
+  posFinal = requestText.indexOf('.",');
+
+  definicion = requestText.slice(0, posFinal);
+  
+  return definicion;
+}
+
 palabra.textContent = 'Palabra: ' + palabraMostrar.join('').toUpperCase();
+pista.textContent = pistaPalabraSecreta;
 errores.textContent = 'Errores: ' + letrasErrores.join(' ').toUpperCase();
 intentos.textContent = 'Intentos ' + (6 - numErrores);
 
