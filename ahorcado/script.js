@@ -86,7 +86,7 @@ function reiniciarJuego()
 
     imagen.src = './img/1.png';
     palabra.textContent = 'Palabra: ' + palabraMostrar.join('').toUpperCase();
-    pista.textContent = pistaPalabraSecreta;
+    pista.textContent = 'Pista: ' + pistaPalabraSecreta;
     errores.textContent = 'Errores: ' + letrasErrores.join(' ').toUpperCase();
     intentos.textContent = 'Intentos ' + (6 - numErrores);
     fin.textContent = '';
@@ -126,7 +126,7 @@ function definicionPalabra(palabraSecreta)
 }
 
 palabra.textContent = 'Palabra: ' + palabraMostrar.join('').toUpperCase();
-pista.textContent = pistaPalabraSecreta;
+pista.textContent = 'Pista: ' + pistaPalabraSecreta;
 errores.textContent = 'Errores: ' + letrasErrores.join(' ').toUpperCase();
 intentos.textContent = 'Intentos ' + (6 - numErrores);
 
