@@ -146,36 +146,44 @@ function compruebaLetra()
 
     if (!contieneLetra(letraUsuario, letrasUsuario.join('')))
     {
-        letrasUsuario.push(letraUsuario);
-
-        if (contieneLetra(letraUsuario, palabraSecreta))
+        if (letraUsuario !== '' && letraUsuario !==' ')
         {
-            palabraMostrar =  mostrarPalabra(letraUsuario, palabraMostrar);
-            palabra.textContent = 'Palabra: ' + palabraMostrar.join('').toUpperCase();
-            
-            if (!contieneLetra('*', palabraMostrar.join('')))
-            {
-                fin.textContent = '¡Se acabó! Has ganado :)';
+            letrasUsuario.push(letraUsuario);
 
-                finDeJuego();
+            if (contieneLetra(letraUsuario, palabraSecreta))
+            {
+                palabraMostrar =  mostrarPalabra(letraUsuario, palabraMostrar);
+                palabra.textContent = 'Palabra: ' + palabraMostrar.join('').toUpperCase();
+                
+                if (!contieneLetra('*', palabraMostrar.join('')))
+                {
+                    fin.textContent = '¡Se acabó! Has ganado :)';
+
+                    finDeJuego();
+                }
             }
+            else
+            {
+                letrasErrores.push(letraUsuario);
+                numErrores++;
+                imagen.src = './img/' + (numErrores + 1).toString() + '.png';
+
+                if (numErrores == 6)
+                {
+                    fin.textContent = '¡Se acabó! Has perdido :( La palabra es: ' + palabraSecreta.toUpperCase();
+
+                    finDeJuego();
+                }
+            }
+
+            errores.textContent = 'Errores: ' + letrasErrores.join(' ').toUpperCase();
+            intentos.textContent = 'Intentos ' + (6 - numErrores);
         }
         else
         {
-            letrasErrores.push(letraUsuario);
-            numErrores++;
-            imagen.src = './img/' + (numErrores + 1).toString() + '.png';
-
-            if (numErrores == 6)
-            {
-                fin.textContent = '¡Se acabó! Has perdido :( La palabra es: ' + palabraSecreta.toUpperCase();
-
-                finDeJuego();
-            }
+            alert('Introduce un letra');
         }
-
-        errores.textContent = 'Errores: ' + letrasErrores.join(' ').toUpperCase();
-        intentos.textContent = 'Intentos ' + (6 - numErrores);
+        
     }
     else
     {
