@@ -1,12 +1,23 @@
+*
+{
+    box-sizing: border-box;
+    font-family: 'Goldman';
+    font-size: 20px;
+}
+
+body
+{
+    background-image: linear-gradient(to right,#1ac6ff,#5cd65c)
+}
+
 .container
 {
-    background-color: grey;
     width: 300px;
     height: 430px;
     margin: 150px auto;
     display: grid;
-    grid-template-columns: 25% 25% 25% 25%;
-    grid-template-rows:  30px 50px 70px 70px 70px 70px 70px;
+    grid-template-columns: repeat(4, 25%);
+    grid-template-rows:  30px 50px repeat(5, 70px);
     justify-content: center;
     align-content: center;
     
@@ -28,7 +39,10 @@
     background-color: black;
     color: gray;
     text-align: right;
-    padding: 5px 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 10px;;
+    font-size: 15px;
 }
 
 .display
@@ -37,5 +51,14 @@
     background-color: black;
     color: white;
     text-align: right;
-    padding: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 10px;
+    font-size: 25px;
+}
+
+button
+{
+    background-color:rgb(255, 255, 255, 0.75);
+    border: 1px solid white;
 }
