@@ -11,6 +11,7 @@ class Calculator
     {
         this.prevOperand = '';
         this.currOperand = '';
+        //this.operation = undefined;
     }
 
     delete()
@@ -26,18 +27,25 @@ class Calculator
         }
     }
 
-    operation(operator)
+    chooseOperation(operator)
     {
-        this.operation;
         switch (operator)
         {
             case '+':
-                if (this.prevOperand !== null && this.prevOperand !== null)
+                if (this.prevOperand !== '' && this.currOperand !== '')
                 {
-                    this.operation = parseFloat(this.prevOperand) + parseFloat(this.currOperand);   
+                    this.operation = parseFloat(this.prevOperand) + parseFloat(this.currOperand);
+                    this.prevOperand = this.operation.toString();
+                    this.currOperand = '';
                 }
-                this.prevOperand = this.currOperand;
-                this.currOperand = '';
+                else
+                {
+                    if (this.currOperand !=='')
+                    {
+                        this.prevOperand = this.currOperand;
+                        this.currOperand = '';    
+                    }
+                }
                 break;
         
             default:
@@ -88,7 +96,7 @@ operators.forEach(operator =>
 {
     operator.addEventListener('click', () =>
     {
-        calculator.operation(operator.textContent);
+        calculator.chooseOperation(operator.textContent);
         calculator.updateDisplay();
     })
 })
