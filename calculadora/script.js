@@ -11,7 +11,7 @@ class Calculator
     {
         this.prevOperand = '';
         this.currOperand = '';
-        //this.operation = undefined;
+        this.operation = undefined;
     }
 
     delete()
@@ -29,33 +29,75 @@ class Calculator
 
     chooseOperation(operator)
     {
-        switch (operator)
+        if (this.currOperand != '')
         {
-            case '+':
-                if (this.prevOperand !== '' && this.currOperand !== '')
-                {
-                    this.operation = parseFloat(this.prevOperand) + parseFloat(this.currOperand);
-                    this.prevOperand = this.operation.toString();
-                    this.currOperand = '';
-                }
-                else
-                {
-                    if (this.currOperand !=='')
-                    {
-                        this.prevOperand = this.currOperand;
-                        this.currOperand = '';    
-                    }
-                }
-                break;
-        
-            default:
-                break;
+            if (this.prevOperand != '' && this.currOperand != '')
+            {
+                this.compute();    
+            }
+            else
+            {
+                this.prevOperand = this.currOperand;
+                this.currOperand = '';
+            }
         }
+        this.operation = operator;
+    }
+
+    compute(equals=false)
+    {
+        let result;
+        let prev = parseFloat(this.prevOperand);
+        let curr = parseFloat(this.currOperand);
+
+        if (this.prevOperand != '' && this.currOperand != '')
+        {    
+            switch (this.operation)
+            {
+                case '+':
+                    result = prev + curr;
+                    break;
+                case '-':
+                    result = prev - curr;
+                    break;
+                case '*':
+                    result = prev * curr;
+                    break;
+                case '÷':
+                    result = prev / curr;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        if (equals)
+        {
+            this.currOperand = result.toString();
+            this.prevOperand = '';    
+        }
+        else
+        {
+            this.prevOperand =  result.toString();
+            this.currOperand = '';
+        }
+    }
+
+    betterDisplay()
+    {
+        let stringOperator = '';
+        
+        if (this.prevOperand != '' && this.operation != undefined)
+        {
+            stringOperator = ' ' + this.operation;
+        }
+
+        return stringOperator;
     }
 
     updateDisplay()
     {
-        this.prevOperandEl.textContent = this.prevOperand;
+        this.prevOperandEl.textContent = this.prevOperand + this.betterDisplay();
         this.currOperandEl.textContent = this.currOperand;
     }
 }
@@ -65,7 +107,7 @@ const numbers = document.querySelectorAll('[data-num]');
 const operators = document.querySelectorAll('[data-operators]');
 const del = document.querySelector('[data-del]');
 const ac = document.querySelector('[data-ac]');
-const equals = document.querySelector('[data-equal]');
+const equals = document.querySelector('[data-equals]');
 const prevOperand = document.querySelector('[data-last]');
 const currOperand = document.querySelector('[data-actual]');
 
@@ -99,4 +141,10 @@ operators.forEach(operator =>
         calculator.chooseOperation(operator.textContent);
         calculator.updateDisplay();
     })
+})
+
+equals.addEventListener('click', () =>
+{
+    calculator.compute(true);
+    calculator.updateDisplay();
 })
