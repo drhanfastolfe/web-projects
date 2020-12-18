@@ -116,7 +116,7 @@ function definicionPalabra(palabraSecreta)
   
   requestText = request.responseText;
   
-  posInicial = requestText.indexOf('"definition"') + '"definition"'.length + 3;
+  posInicial = requestText.indexOf('"definition"') + '"definition"'.length + 2;
   
   requestText = requestText.slice(posInicial);
 
